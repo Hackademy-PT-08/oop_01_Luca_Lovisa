@@ -7,9 +7,9 @@ class Company {
     public $tot_employees;
     public static $avg_wage = 1500;
     public static $spesaTotale=0;
+    public static $secondaSpesaTotale=0;
 
-
-    function __construct ($azienda,$posizione,$dipendenti) {
+    public function __construct ($azienda,$posizione,$dipendenti) {
         $this->name=$azienda;
         $this->location=$posizione;
         $this->tot_employees=$dipendenti;
@@ -30,10 +30,18 @@ class Company {
          $spesaAzienda= self::$avg_wage * $this->tot_employees*12;
          echo "L'azienda ".$this->name." spende $spesaAzienda € l'anno \n"; 
     }
+
+    public function richiamoSpesaAziende() {
+       return self::$secondaSpesaTotale += self::$avg_wage * $this->tot_employees*12;
+    }
     
     public static function printSpesaTot () {
         echo "Tutte le aziende assieme spendono ".self::$spesaTotale." € l'anno \n";
       
+    }
+
+    public static function printSpeseRichiamate() {
+        echo "Le aziende richiamate spendono ".self::$secondaSpesaTotale;
     }
 };
 
@@ -47,8 +55,11 @@ $company5 = new Company ("La voce","Italia",38);
 
 var_dump ($company1);
 
-$company1->infoCompany();
+$company5->infoCompany();
 $company4->infoCompany();
-$company5->spesaAzienda();
+$company2->spesaAzienda();
 
+$company1->richiamoSpesaAziende();
+$company3->richiamoSpesaAziende();
  Company::printSpesaTot();
+ Company::printSpeseRichiamate();
